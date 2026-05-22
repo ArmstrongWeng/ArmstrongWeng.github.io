@@ -96,18 +96,19 @@
             <div class="services-grid">
                 <div class="service-card">
                     <div class="service-icon"><i class="fas fa-microchip"></i></div>
-                    <h3 id="service1Title" data-i18n="service1.title">智能系统开发</h3>
-                    <p id="service1Desc" data-i18n="service1.desc">根据工业场景定制搭建开发平台，集成智能显示模块与工业视觉系统，全面提升自动化效率。</p>
+                    <h3 data-i18n="service1.title">智能系统开发</h3>
+                    <!-- 关键修复：清空标签内的默认中文，完全依赖 data-i18n 属性 -->
+                    <p data-i18n="service1.desc"></p>
                 </div>
                 <div class="service-card">
                     <div class="service-icon"><i class="fas fa-chart-pie"></i></div>
-                    <h3 id="service2Title" data-i18n="service2.title">工业视觉大数据分析及可视化硬件集成</h3>
-                    <p id="service2Desc" data-i18n="service2.desc">AI大数据分析、机器人引导、行为分析软件及硬件、工业数据可视化互动界面，提升决策科学性与业务洞察力。</p>
+                    <h3 data-i18n="service2.title">工业视觉大数据分析及可视化硬件集成</h3>
+                    <p data-i18n="service2.desc"></p>
                 </div>
                 <div class="service-card">
                     <div class="service-icon"><i class="fas fa-cloud"></i></div>
-                    <h3 id="service3Title" data-i18n="service3.title">工业AI模块定制</h3>
-                    <p id="service3Desc" data-i18n="service3.desc">自动化驾驶舱、智能防护系统、边缘计算网关及AI云平台深度定制，赋能工业智能化升级。</p>
+                    <h3 data-i18n="service3.title">工业AI模块定制</h3>
+                    <p data-i18n="service3.desc"></p>
                 </div>
             </div>
         </div>
@@ -127,7 +128,7 @@
 </footer>
 
 <script>
-    // 中英文语言包 (重新修正英文翻译，使其精准匹配中文原意)
+    // 中英文语言包 (完整匹配中文原意)
     const translations = {
         zh: {
             "nav.home": "首页",
@@ -191,13 +192,13 @@
 
     let currentLang = 'zh';
 
-    // 动态更新页面所有带 data-i18n 属性的元素文本
+    // 核心修复：动态更新页面所有带 data-i18n 属性的元素
     function updateLanguage(lang) {
         const elements = document.querySelectorAll('[data-i18n]');
         elements.forEach(el => {
             const key = el.getAttribute('data-i18n');
             if (translations[lang] && translations[lang][key]) {
-                // 特殊处理 CTA 按钮图标保留
+                // 保留按钮内的图标结构
                 if (el.id === 'heroCtaBtn' && el.innerHTML.includes('<i')) {
                     const arrowIcon = '<i class="fas fa-arrow-right"></i>';
                     el.innerHTML = translations[lang][key] + ' ' + arrowIcon;
@@ -206,12 +207,13 @@
                     el.innerText = translations[lang][key];
                 }
                 else {
+                    // 对于所有其他元素（包括服务卡片的 p 和 h3），直接替换文本
                     el.innerText = translations[lang][key];
                 }
             }
         });
         
-        // 处理 hero-title 的两个部分分开渲染
+        // 单独处理 hero-title 因为包含换行
         const heroTitleElem = document.getElementById('heroTitle');
         if (heroTitleElem) {
             const title1 = translations[lang]["hero.title1"];
@@ -219,13 +221,13 @@
             heroTitleElem.innerHTML = `${title1}<br>${title2}`;
         }
         
-        // 处理 heroBadge 中独立span文本
+        // 处理 heroBadge 中的独立 span
         const heroBadgeSpan = document.querySelector('#heroBadge span');
-        if (heroBadgeSpan) {
+        if (heroBadgeSpan && heroBadgeSpan.getAttribute('data-i18n') === 'hero.badge') {
             heroBadgeSpan.innerText = translations[lang]["hero.badge"];
         }
         
-        // 更新语言切换按钮样式
+        // 更新语言按钮样式
         document.querySelectorAll('.lang-btn').forEach(btn => {
             if (btn.getAttribute('data-lang') === lang) {
                 btn.classList.add('active');
@@ -235,25 +237,19 @@
         });
         
         // 更新页面标题
-        if (lang === 'zh') {
-            document.title = "上海赞硕信息技术有限公司Zensoinfo | 首页";
-        } else {
-            document.title = "Shanghai Zensoinfo | Home";
-        }
+        document.title = lang === 'zh' ? "上海赞硕信息技术有限公司Zensoinfo | 首页" : "Shanghai Zensoinfo | Home";
     }
 
-    // 处理导航（单页内容切换）
+    // 页面导航逻辑 (保持不变)
     function handleNavigation(page, lang) {
         const servicesSection = document.getElementById('services-section');
         const heroContainer = document.querySelector('#hero-section .container.hero');
         
         if (page === 'home') {
             if (servicesSection) servicesSection.style.display = 'block';
-            // 如果之前变更过hero内容则恢复原始结构 (但保留完整克隆以避免事件丢失)
             if (window.originalHeroHTML && heroContainer && !heroContainer.hasAttribute('data-restored')) {
                 heroContainer.innerHTML = window.originalHeroHTML;
                 heroContainer.setAttribute('data-restored', 'true');
-                // 重新绑定CTA按钮事件
                 const ctaNew = document.getElementById('heroCtaBtn');
                 if (ctaNew) {
                     const newCta = ctaNew.cloneNode(true);
@@ -263,13 +259,10 @@
                         handleNavigation('contact', currentLang);
                     });
                 }
-                // 重新绑定hero-title跟随语言刷新
                 updateLanguage(currentLang);
             } else if (heroContainer && !window.originalHeroHTML) {
-                // 初次保存备份
                 window.originalHeroHTML = heroContainer.innerHTML;
             } else if (heroContainer) {
-                // 确保语言更新
                 updateLanguage(currentLang);
             }
             setActiveNav('home');
@@ -285,12 +278,7 @@
             <div class="hero-image"><i class="fas fa-chalkboard-user"></i></div>`;
             if (heroContainer) heroContainer.innerHTML = aboutHtml;
             const backBtn = document.getElementById('aboutBackHome');
-            if (backBtn) {
-                backBtn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    handleNavigation('home', currentLang);
-                });
-            }
+            if (backBtn) backBtn.addEventListener('click', (e) => { e.preventDefault(); handleNavigation('home', currentLang); });
             setActiveNav('about');
         }
         else if (page === 'products') {
@@ -342,16 +330,14 @@
     }
 
     function initNavigation() {
-        const navLinksItems = document.querySelectorAll('.nav-links a[data-nav]');
-        navLinksItems.forEach(link => {
+        document.querySelectorAll('.nav-links a[data-nav]').forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
                 const page = link.getAttribute('data-nav');
                 if (page) handleNavigation(page, currentLang);
             });
         });
-        const footerNavs = document.querySelectorAll('.footer-col a[data-nav-footer]');
-        footerNavs.forEach(link => {
+        document.querySelectorAll('.footer-col a[data-nav-footer]').forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
                 const page = link.getAttribute('data-nav-footer');
@@ -368,9 +354,8 @@
     }
 
     function setupLangToggle() {
-        const langBtns = document.querySelectorAll('.lang-btn');
-        langBtns.forEach(btn => {
-            btn.addEventListener('click', (e) => {
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
                 const lang = btn.getAttribute('data-lang');
                 if (lang === currentLang) return;
                 currentLang = lang;
@@ -378,9 +363,7 @@
                 let activePage = 'home';
                 const activeNav = document.querySelector('.nav-links a.active[data-nav]');
                 if (activeNav) activePage = activeNav.getAttribute('data-nav');
-                // 刷新当前显示页面 (确保关于/产品/联系页面的内容同步语言)
                 handleNavigation(activePage, currentLang);
-                // 再次确保基础文本更新
                 updateLanguage(currentLang);
             });
         });
@@ -397,8 +380,7 @@
         const toggleBtn = document.getElementById('mobileToggle');
         const navLinksEl = document.getElementById('navLinks');
         if(toggleBtn) toggleBtn.addEventListener('click', () => navLinksEl.classList.toggle('show'));
-        const servSec = document.getElementById('services-section');
-        if (servSec) servSec.style.display = 'block';
+        if(document.getElementById('services-section')) document.getElementById('services-section').style.display = 'block';
         setActiveNav('home');
     }
     init();
