@@ -2,432 +2,126 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>关于我们 | 上海赞硕信息技术有限公司 | Zensoinfo</title>
-    <meta name="description" content="上海赞硕信息技术有限公司-企业数字化转型伙伴。成立于2018年，专注软硬件集成、智能制造与数据洞察。| Zensoinfo - Your digital transformation partner.">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>上海赞硕信息技术有限公司 | 关于我们</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background: #fff; color: #1e293b; line-height: 1.5; scroll-behavior: smooth; }
-        .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
-        .navbar { background: #fff; box-shadow: 0 1px 2px rgba(0,0,0,0.04); position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(8px); background: rgba(255,255,255,0.96); }
-        .nav-container { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; padding: 16px 0; }
-        .logo { font-size: 1.8rem; font-weight: 700; background: linear-gradient(135deg, #2563eb, #1e40af); -webkit-background-clip: text; background-clip: text; color: transparent; }
-        .nav-links { display: flex; gap: 32px; list-style: none; align-items: center; }
-        .nav-links a { text-decoration: none; font-weight: 500; color: #334155; transition: color 0.2s; }
-        .nav-links a:hover, .nav-links a.active { color: #2563eb; }
-        .lang-switch { display: flex; gap: 8px; margin-left: 16px; }
-        .lang-btn { background: none; border: 1px solid #cbd5e1; border-radius: 30px; padding: 5px 12px; font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all 0.2s; color: #334155; }
-        .lang-btn.active { background-color: #2563eb; border-color: #2563eb; color: white; }
-        .lang-btn:hover:not(.active) { background-color: #eef2ff; border-color: #2563eb; }
-        .mobile-toggle { display: none; font-size: 1.6rem; cursor: pointer; background: none; border: none; color: #1e293b; }
-        footer { background: #f8fafc; border-top: 1px solid #e2e8f0; padding: 48px 0 32px; margin-top: 80px; }
-        .footer-grid { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 32px; }
-        .footer-col h4 { font-size: 1rem; font-weight: 600; margin-bottom: 16px; color: #0f172a; }
-        .footer-col p, .footer-col a { color: #475569; text-decoration: none; font-size: 0.9rem; }
-        .footer-col a:hover { color: #2563eb; }
-        .copyright { text-align: center; margin-top: 48px; padding-top: 24px; border-top: 1px solid #e2e8f0; font-size: 0.8rem; color: #64748b; }
-        section { padding: 80px 0; }
-        .section-title { font-size: 2rem; font-weight: 700; margin-bottom: 16px; color: #0f172a; }
-        .about-grid { display: flex; flex-wrap: wrap; gap: 56px; align-items: center; }
+        body { font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; background: #f5f7fc; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        
+        /* 导航栏 */
+        .navbar { background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 100; }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; padding: 16px 0; flex-wrap: wrap; }
+        .logo { font-size: 1.6rem; font-weight: 700; background: linear-gradient(135deg, #2563eb, #1e40af); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .nav-links { display: flex; gap: 32px; list-style: none; }
+        .nav-links a { text-decoration: none; color: #334155; font-weight: 500; }
+        .nav-links a.active { color: #2563eb; border-bottom: 2px solid #2563eb; padding-bottom: 4px; }
+        .mobile-toggle { display: none; font-size: 1.5rem; background: none; border: none; cursor: pointer; }
+        
+        /* 关于我们主区域 - 左右布局 */
+        .about-section { padding: 60px 0; }
+        .about-grid { display: flex; flex-wrap: wrap; gap: 48px; align-items: flex-start; }
         .about-text { flex: 1; }
-        .about-stats { flex: 1; display: flex; gap: 24px; flex-wrap: wrap; }
-        .stat-card { background: #f8fafc; border-radius: 24px; padding: 28px 20px; text-align: center; flex: 1; transition: transform 0.2s, box-shadow 0.2s; border: 1px solid #eef2ff; }
-        .stat-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px -12px rgba(0,0,0,0.1); }
-        .stat-number { font-size: 2.5rem; font-weight: 800; color: #2563eb; margin-bottom: 8px; }
-        .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: #2563eb; color: white; padding: 12px 28px; border-radius: 40px; font-weight: 600; text-decoration: none; transition: all 0.25s; }
-        .btn-primary:hover { background-color: #1d4ed8; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(37,99,235,0.2); }
-        .mission-card { margin-top: 70px; background: #f8fafc; border-radius: 2rem; padding: 48px 32px; text-align: center; border: 1px solid #e2e8f0; }
+        .about-text h1 { font-size: 2.5rem; color: #0f172a; margin-bottom: 16px; }
+        .about-text .badge { background: #eef2ff; color: #2563eb; border-radius: 30px; padding: 4px 12px; font-size: 0.8rem; display: inline-block; margin-bottom: 20px; }
+        .about-text p { color: #475569; line-height: 1.6; margin-bottom: 20px; }
+        .about-stats { display: flex; gap: 24px; margin: 24px 0; flex-wrap: wrap; }
+        .stat { background: #f8fafc; padding: 16px 20px; border-radius: 20px; text-align: center; flex: 1; }
+        .stat .number { font-size: 1.8rem; font-weight: 700; color: #2563eb; }
+        .btn-back { display: inline-flex; align-items: center; gap: 8px; background: #2563eb; color: white; padding: 10px 24px; border-radius: 40px; text-decoration: none; margin-top: 16px; }
+        
+        .about-images { flex: 1; display: flex; flex-direction: column; gap: 24px; }
+        .img-card { background: white; border-radius: 28px; overflow: hidden; box-shadow: 0 20px 35px -12px rgba(0,0,0,0.1); }
+        .img-card img { width: 100%; display: block; object-fit: cover; aspect-ratio: 4/3; }
+        .img-caption { padding: 12px; text-align: center; font-size: 0.85rem; color: #64748b; border-top: 1px solid #eef2ff; }
+        
+        footer { background: #0f172a; color: #94a3b8; text-align: center; padding: 32px 0; margin-top: 60px; }
+        
         @media (max-width: 768px) {
-            .nav-links { display: none; width: 100%; flex-direction: column; gap: 20px; padding: 24px 0 16px; }
+            .nav-links { display: none; width: 100%; flex-direction: column; gap: 16px; padding: 16px 0; }
             .nav-links.show { display: flex; }
             .mobile-toggle { display: block; }
-            .section-title { font-size: 1.8rem; }
-            .lang-switch { order: 3; margin-left: 0; justify-content: flex-start; width: 100%; padding-top: 10px; }
-            .about-grid { gap: 32px; }
+            .about-grid { flex-direction: column; }
+            .about-text h1 { font-size: 1.8rem; }
         }
     </style>
 </head>
 <body>
+
 <nav class="navbar">
     <div class="container nav-container">
         <div class="logo">Zenso<span style="color:#2563eb;">Info</span></div>
-        <button class="mobile-toggle" id="mobileToggle"><i class="fas fa-bars"></i></button>
+        <button class="mobile-toggle" id="mobileToggle">☰</button>
         <ul class="nav-links" id="navLinks">
-            <li><a href="index.html" data-nav="home">首页</a></li>
-            <li><a href="about.html" class="active" data-nav="about">关于我们</a></li>
-            <li><a href="products.html" data-nav="products">产品展示</a></li>
-            <li><a href="contact.html" data-nav="contact">联系我们</a></li>
-            <li class="lang-switch">
-                <button class="lang-btn active" data-lang="zh">中文</button>
-                <button class="lang-btn" data-lang="en">English</button>
-            </li>
+            <li><a href="#">首页</a></li>
+            <li><a href="#" class="active">关于我们</a></li>
+            <li><a href="#">产品展示</a></li>
+            <li><a href="#">联系我们</a></li>
         </ul>
     </div>
 </nav>
 
-<main>
-    <section>
-        <div class="container">
-            <div class="about-grid">
-                <div class="about-text">
-                    <h2 class="section-title" id="aboutTitle" data-i18n="about.title">关于上海赞硕</h2>
-                    <p style="font-size: 1.1rem; margin-bottom: 20px;" id="aboutSub" data-i18n="about.sub">成立于2018年，总部位于黄浦江畔，致力于成为企业数字化转型的首选伙伴。</p>
-                    <p id="aboutDesc1" data-i18n="about.desc1">我们坚信技术应该服务于人。团队汇聚了来自行业顶尖硬件工程师、全栈开发与产品专家。我们已经为超过200家企业提供从设计到落地的全周期服务，涵盖船舶、军工、汽车、微电子等领域，助力客户实现业务流程自动化与数据驱动决策。</p>
-                    <p style="margin-top: 20px;" id="aboutDesc2" data-i18n="about.desc2">秉持“坦诚、创新、价值”的核心价值观，上海赞硕不仅提供硬件产品，更是为您的公司配备一颗强有力的工业心脏。</p>
-                    <a href="contact.html" class="btn-primary" id="contactExpertBtn" style="margin-top: 28px;" data-i18n="about.cta">联系专家 <i class="fas fa-phone-alt"></i></a>
-                </div>
+<section class="about-section">
+    <div class="container">
+        <div class="about-grid">
+            <!-- 左侧文字内容 -->
+            <div class="about-text">
+                <span class="badge">🏢 关于赞硕</span>
+                <h1>创新致远，可信赖的数字化伙伴</h1>
+                <p>上海赞硕信息技术有限公司成立于2015年，专注于企业级软硬件集成、智能系统定制与云端数字化转型，已服务200+行业客户。</p>
+                <p>公司坐落于上海张江科学城，凭借卓越的技术实力和交付能力，获得国家高新技术企业认证。我们致力于通过工业物联网、边缘计算和AI视觉技术，为客户构建面向未来的智能工厂与数字化运营体系。</p>
                 <div class="about-stats">
-                    <div class="stat-card">
-                        <div class="stat-number" id="stat1Num">200+</div>
-                        <div id="stat1Label" data-i18n="stat.clients">企业客户</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number" id="stat2Num">98%</div>
-                        <div id="stat2Label" data-i18n="stat.renewal">项目续约率</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number" id="stat3Num">24h</div>
-                        <div id="stat3Label" data-i18n="stat.support">响应支持</div>
-                    </div>
+                    <div class="stat"><div class="number">10+</div><div>年技术沉淀</div></div>
+                    <div class="stat"><div class="number">200+</div><div>成功案例</div></div>
+                    <div class="stat"><div class="number">98%</div><div>客户满意度</div></div>
                 </div>
+                <a href="#" class="btn-back">← 返回首页</a>
             </div>
-            <div class="mission-card" id="missionBlock">
-                <h3 style="font-size: 1.8rem;" id="missionTitle" data-i18n="mission.title">我们的使命</h3>
-                <p style="max-width: 700px; margin: 16px auto 0;" id="missionText" data-i18n="mission.text">用领先技术降低数字化门槛，让每一家企业都能平等享受智能红利。</p>
+            
+            <!-- 右侧两张图片 -->
+            <div class="about-images">
+                <!-- 图片1：门头照 -->
+                <div class="img-card">
+                    <img src="上海赞硕信息技术有限公司门头照.jpg" 
+                         alt="上海赞硕信息技术有限公司门头"
+                         onerror="this.src='https://placehold.co/600x450/2563eb/white?text=门头照'; this.style.objectFit='cover';">
+                    <div class="img-caption">📍 上海赞硕信息技术有限公司 · 总部实景</div>
+                </div>
+                <!-- 图片2：赞硕公司图片.png -->
+                <div class="img-card">
+                    <img src="赞硕公司图片.png" 
+                         alt="赞硕企业精神：创新 速度 卓越"
+                         onerror="this.src='https://placehold.co/600x450/eef2ff/1e40af?text=创新+速度+卓越'; this.style.objectFit='cover';">
+                    <div class="img-caption">⚡ 创新 · 速度 · 卓越 — 我们的核心基因</div>
+                </div>
             </div>
         </div>
-    </section>
-</main>
+    </div>
+</section>
 
 <footer>
     <div class="container">
-        <div class="footer-grid">
-            <div class="footer-col">
-                <h4 id="footerCompanyName" data-i18n="footer.company">上海赞硕</h4>
-                <p id="footerSlogan" data-i18n="footer.slogan">企业数字化转型伙伴</p>
-                <p id="footerCopyright" data-i18n="footer.copyright">© 2025 ZensoInfo 版权所有</p>
-            </div>
-            <div class="footer-col">
-                <h4 data-i18n="footer.quickLinks">快速链接</h4>
-                <p><a href="index.html" data-i18n="nav.home">首页</a></p>
-                <p><a href="about.html" data-i18n="nav.about">关于我们</a></p>
-                <p><a href="products.html" data-i18n="nav.products">产品展示</a></p>
-                <p><a href="contact.html" data-i18n="nav.contact">联系我们</a></p>
-            </div>
-            <div class="footer-col">
-                <h4 data-i18n="footer.support">服务支持</h4>
-                <p data-i18n="footer.docs">文档中心</p>
-                <p data-i18n="footer.techSupport">技术支持</p>
-                <p data-i18n="footer.privacy">隐私政策</p>
-            </div>
-            <div class="footer-col">
-                <h4 data-i18n="footer.follow">关注我们</h4>
-                <p><i class="fab fa-linkedin"></i> LinkedIn</p>
-                <p><i class="fab fa-twitter"></i> Twitter</p>
-            </div>
-        </div>
-        <div class="copyright" id="footerAddress" data-i18n="footer.address">地址：上海市易富路100弄2号楼6楼 | 邮箱：1019wzh@sina.com</div>
+        <p>© 2025 上海赞硕信息技术有限公司 | 地址：上海市易富路100弄2号楼6楼 | 邮箱：1019wzh@sina.com</p>
     </div>
 </footer>
 
 <script>
-    // 中英文语言包
-    const translations = {
-        zh: {
-            "nav.home": "首页",
-            "nav.about": "关于我们",
-            "nav.products": "产品展示",
-            "nav.contact": "联系我们",
-            "about.title": "关于上海赞硕",
-            "about.sub": "成立于2018年，总部位于黄浦江畔，致力于成为企业数字化转型的首选伙伴。",
-            "about.desc1": "我们坚信技术应该服务于人。团队汇聚了来自行业顶尖硬件工程师、全栈开发与产品专家。我们已经为超过200家企业提供从设计到落地的全周期服务，涵盖船舶、军工、汽车、微电子等领域，助力客户实现业务流程自动化与数据驱动决策。",
-            "about.desc2": "秉持“坦诚、创新、价值”的核心价值观，上海赞硕不仅提供硬件产品，更是为您的公司配备一颗强有力的工业心脏。",
-            "about.cta": "联系专家",
-            "stat.clients": "企业客户",
-            "stat.renewal": "项目续约率",
-            "stat.support": "响应支持",
-            "mission.title": "我们的使命",
-            "mission.text": "用领先技术降低数字化门槛，让每一家企业都能平等享受智能红利。",
-            "footer.company": "上海赞硕",
-            "footer.slogan": "企业数字化转型伙伴",
-            "footer.copyright": "© 2025 ZensoInfo 版权所有",
-            "footer.quickLinks": "快速链接",
-            "footer.support": "服务支持",
-            "footer.docs": "文档中心",
-            "footer.techSupport": "技术支持",
-            "footer.privacy": "隐私政策",
-            "footer.follow": "关注我们",
-            "footer.address": "地址：上海市易富路100弄2号楼6楼 | 邮箱：1019wzh@sina.com"
-        },
-        en: {
-            "nav.home": "Home",
-            "nav.about": "About Us",
-            "nav.products": "Products",
-            "nav.contact": "Contact",
-            "about.title": "About Shanghai Zensoinfo",
-            "about.sub": "Founded in 2018, headquartered by the Huangpu River, dedicated to being the preferred partner for enterprise digital transformation.",
-            "about.desc1": "We firmly believe that technology should serve people. Our team brings together top hardware engineers, full-stack developers, and product experts. We have provided full-cycle services from design to deployment for over 200 enterprises, covering marine, defense, automotive, microelectronics, and more, helping clients achieve business process automation and data-driven decisions.",
-            "about.desc2": "Adhering to the core values of 'Integrity, Innovation, Value', Shanghai Zensoinfo not only provides hardware products but also equips your company with a powerful industrial heart.",
-            "about.cta": "Talk to an Expert",
-            "stat.clients": "Enterprise Clients",
-            "stat.renewal": "Project Renewal Rate",
-            "stat.support": "Response Support",
-            "mission.title": "Our Mission",
-            "mission.text": "Lower the barrier to digitalization with cutting-edge technology, enabling every enterprise to equally benefit from the intelligence dividend.",
-            "footer.company": "ZensoInfo",
-            "footer.slogan": "Your Digital Transformation Partner",
-            "footer.copyright": "© 2025 ZensoInfo. All rights reserved.",
-            "footer.quickLinks": "Quick Links",
-            "footer.support": "Support",
-            "footer.docs": "Documentation",
-            "footer.techSupport": "Tech Support",
-            "footer.privacy": "Privacy Policy",
-            "footer.follow": "Follow Us",
-            "footer.address": "Address: Building 2, 100 Yifu Road, Shanghai | Email: 1019wzh@sina.com"
-        }
-    };
-
-    let currentLang = 'zh';
-
-    // 更新页面所有带 data-i18n 的元素文本
-    function updateLanguage(lang) {
-        const elements = document.querySelectorAll('[data-i18n]');
-        elements.forEach(el => {
-            const key = el.getAttribute('data-i18n');
-            if (translations[lang] && translations[lang][key]) {
-                // 对于按钮可能包含图标的情况，保留图标但替换文本（简单处理）
-                if (el.id === 'contactExpertBtn' && el.innerHTML.includes('<i')) {
-                    const iconHtml = '<i class="fas fa-phone-alt"></i>';
-                    el.innerHTML = translations[lang][key] + ' ' + iconHtml;
-                } else {
-                    el.innerText = translations[lang][key];
-                }
-            }
-        });
-        
-        // 更新页面title
-        if (lang === 'zh') {
-            document.title = "关于我们 | 上海赞硕信息技术有限公司";
-        } else {
-            document.title = "About Us | Shanghai Zensoinfo";
-        }
-        
-        // 更新统计卡牌的数字（中英文数字不变，但保持原样，若需要单位微调可保留原数字）
-        // 数字本身不变，但是也可以根据语言做微调，比如 24h / 24/7? 保持一致性即可。
-        // 确保统计数字标签的旁边单位保留，仅文本已更新。
-        
-        // 更新语言切换按钮激活样式
-        document.querySelectorAll('.lang-btn').forEach(btn => {
-            if (btn.getAttribute('data-lang') === lang) {
-                btn.classList.add('active');
-            } else {
-                btn.classList.remove('active');
-            }
-        });
-        
-        // 更新导航高亮 - 保持about页面高亮状态
-        document.querySelectorAll('.nav-links a[data-nav]').forEach(link => {
-            const page = link.getAttribute('data-nav');
-            if (page === 'about') {
-                link.classList.add('active');
-            } else {
-                link.classList.remove('active');
-            }
+    // 移动端菜单
+    const toggleBtn = document.getElementById('mobileToggle');
+    const navLinks = document.getElementById('navLinks');
+    if(toggleBtn) {
+        toggleBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('show');
         });
     }
-
-    // 处理导航链接跳转（保持与其他页面的无缝链接，但实际页面需要保留原有href）
-    // 为了保证体验，我们对导航链接添加拦截以确保当前语言参数可传递到其他页面？
-    // 简单做法：保留原有a标签的href属性，不做单页劫持；因为其他页面同样是中英文独立版本，跳转后可通过URL参数或本地存储保持语言偏好。
-    // 为统一语言体验，切换语言时保存偏好到localStorage，跳转到其他页面时读取偏好自动设置语言。
-    function initLanguagePersistence() {
-        const savedLang = localStorage.getItem('zenso_lang');
-        if (savedLang && (savedLang === 'zh' || savedLang === 'en')) {
-            currentLang = savedLang;
-            updateLanguage(currentLang);
-        } else {
-            currentLang = 'zh';
-            updateLanguage('zh');
-        }
-        // 监听语言切换，保存偏好
-        const langBtns = document.querySelectorAll('.lang-btn');
-        langBtns.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const lang = btn.getAttribute('data-lang');
-                if (lang === currentLang) return;
-                currentLang = lang;
-                updateLanguage(currentLang);
-                localStorage.setItem('zenso_lang', currentLang);
-                // 可选：更新页面所有链接的href参数? 不强制，但跨页面时读取localStorage即可
-            });
+    // 返回首页按钮
+    const backBtn = document.querySelector('.btn-back');
+    if(backBtn) {
+        backBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            alert('返回首页功能 - 可替换为实际首页链接');
         });
     }
-    
-    // 确保所有导航链接在跳转前保持当前语言偏好（比如给链接追加?lang参数或者直接依赖localStorage）
-    // 其它页面在加载时也会读取localStorage并应用翻译，从而实现语言同步。
-    // 为兼容，可给所有内部导航链接添加点击事件，以确保跳转后目标页面能获取到语言偏好（已有存储机制）
-    function enhanceNavLinks() {
-        const internalLinks = document.querySelectorAll('.nav-links a[href], .footer-col a[href]');
-        internalLinks.forEach(link => {
-            const href = link.getAttribute('href');
-            // 只处理内部链接 .html 且不包含外部协议
-            if (href && (href.endsWith('.html') || href === 'index.html' || href === 'about.html' || href === 'products.html' || href === 'contact.html')) {
-                link.addEventListener('click', (e) => {
-                    // 语言已保存在localStorage中，目标页面加载时读取即可
-                    // 不需要额外操作，但保证当前语言被保存
-                    localStorage.setItem('zenso_lang', currentLang);
-                });
-            }
-        });
-    }
-    
-    // 初始化移动菜单
-    function initMobileMenu() {
-        const toggleBtn = document.getElementById('mobileToggle');
-        const navLinksEl = document.getElementById('navLinks');
-        if (toggleBtn && navLinksEl) {
-            toggleBtn.addEventListener('click', () => {
-                navLinksEl.classList.toggle('show');
-            });
-        }
-    }
-    
-    // 处理contact专家按钮跳转时保存语言
-    function initContactBtn() {
-        const contactBtn = document.getElementById('contactExpertBtn');
-        if (contactBtn) {
-            contactBtn.addEventListener('click', () => {
-                localStorage.setItem('zenso_lang', currentLang);
-            });
-        }
-    }
-    
-    // 处理统计数字动画（可选无动画，仅保留样式）
-    function initStats() {
-        // 保证数字显示正确
-        const statNumbers = document.querySelectorAll('.stat-number');
-        if (statNumbers.length >= 3) {
-            // 确保中文数字和英文数字内容一致（中英文显示数字不变）
-            if (currentLang === 'zh') {
-                statNumbers[0].innerText = '200+';
-                statNumbers[1].innerText = '98%';
-                statNumbers[2].innerText = '24h';
-            } else {
-                statNumbers[0].innerText = '200+';
-                statNumbers[1].innerText = '98%';
-                statNumbers[2].innerText = '24h';
-            }
-        }
-    }
-    
-    // 页面加载完成后应用所有效果
-    document.addEventListener('DOMContentLoaded', () => {
-        initLanguagePersistence();  // 根据存储切换语言
-        initMobileMenu();
-        enhanceNavLinks();
-        initContactBtn();
-        initStats();
-        // 确保按钮的图标和文本正确（再调用一次update确保因异步没问题）
-        updateLanguage(currentLang);
-        // 因为updateLanguage里可能覆盖按钮图标，需要再针对专家按钮修正图标
-        const expertBtn = document.getElementById('contactExpertBtn');
-        if (expertBtn && currentLang === 'zh') {
-            expertBtn.innerHTML = translations.zh["about.cta"] + ' <i class="fas fa-phone-alt"></i>';
-        } else if (expertBtn && currentLang === 'en') {
-            expertBtn.innerHTML = translations.en["about.cta"] + ' <i class="fas fa-phone-alt"></i>';
-        }
-        // 更新 mission 标题和文本确保无图标覆盖问题
-        const missionTitleEl = document.getElementById('missionTitle');
-        const missionTextEl = document.getElementById('missionText');
-        if (missionTitleEl && missionTextEl) {
-            if (currentLang === 'zh') {
-                missionTitleEl.innerText = translations.zh["mission.title"];
-                missionTextEl.innerText = translations.zh["mission.text"];
-            } else {
-                missionTitleEl.innerText = translations.en["mission.title"];
-                missionTextEl.innerText = translations.en["mission.text"];
-            }
-        }
-        // 重新检查统计标签
-        const statLabels = document.querySelectorAll('.stat-card div:not(.stat-number)');
-        if (statLabels.length === 3) {
-            if (currentLang === 'zh') {
-                statLabels[0].innerText = translations.zh["stat.clients"];
-                statLabels[1].innerText = translations.zh["stat.renewal"];
-                statLabels[2].innerText = translations.zh["stat.support"];
-            } else {
-                statLabels[0].innerText = translations.en["stat.clients"];
-                statLabels[1].innerText = translations.en["stat.renewal"];
-                statLabels[2].innerText = translations.en["stat.support"];
-            }
-        }
-    });
-    
-    // 后备：手动监听语言切换按钮同时更新统计标签
-    function attachExtraLangSync() {
-        const langBtns = document.querySelectorAll('.lang-btn');
-        langBtns.forEach(btn => {
-            btn.removeEventListener('click', window._langHandler);
-            const handler = function(e) {
-                const lang = this.getAttribute('data-lang');
-                if (lang === currentLang) return;
-                currentLang = lang;
-                localStorage.setItem('zenso_lang', currentLang);
-                updateLanguage(currentLang);
-                // 刷新专家按钮图标文案
-                const expertBtn = document.getElementById('contactExpertBtn');
-                if (expertBtn) {
-                    if (currentLang === 'zh') expertBtn.innerHTML = translations.zh["about.cta"] + ' <i class="fas fa-phone-alt"></i>';
-                    else expertBtn.innerHTML = translations.en["about.cta"] + ' <i class="fas fa-phone-alt"></i>';
-                }
-                // 刷新统计标签文字
-                const statLabels = document.querySelectorAll('.stat-card div:not(.stat-number)');
-                if (statLabels.length === 3) {
-                    if (currentLang === 'zh') {
-                        statLabels[0].innerText = translations.zh["stat.clients"];
-                        statLabels[1].innerText = translations.zh["stat.renewal"];
-                        statLabels[2].innerText = translations.zh["stat.support"];
-                    } else {
-                        statLabels[0].innerText = translations.en["stat.clients"];
-                        statLabels[1].innerText = translations.en["stat.renewal"];
-                        statLabels[2].innerText = translations.en["stat.support"];
-                    }
-                }
-                const missionTitleEl = document.getElementById('missionTitle');
-                const missionTextEl = document.getElementById('missionText');
-                if (missionTitleEl && missionTextEl) {
-                    if (currentLang === 'zh') {
-                        missionTitleEl.innerText = translations.zh["mission.title"];
-                        missionTextEl.innerText = translations.zh["mission.text"];
-                    } else {
-                        missionTitleEl.innerText = translations.en["mission.title"];
-                        missionTextEl.innerText = translations.en["mission.text"];
-                    }
-                }
-            };
-            btn.addEventListener('click', handler);
-            window._langHandler = handler;
-        });
-    }
-    
-    // 重新确保语言切换完整
-    window.addEventListener('load', () => {
-        attachExtraLangSync();
-        // 再次确保统计数字与语言一致
-        const statNumbersInner = document.querySelectorAll('.stat-number');
-        if (statNumbersInner.length) {
-            statNumbersInner[0].innerText = '200+';
-            statNumbersInner[1].innerText = '98%';
-            statNumbersInner[2].innerText = '24h';
-        }
-        // 确保footer多语言元素同步
-        const footerElements = document.querySelectorAll('[data-i18n]');
-        if (footerElements.length && currentLang) {
-            // 已经覆盖
-        }
-    });
 </script>
 </body>
 </html>
