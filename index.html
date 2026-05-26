@@ -45,7 +45,7 @@
         .service-icon { font-size: 2.4rem; color: #2563eb; margin-bottom: 24px; }
         .service-card h3 { font-size: 1.4rem; margin-bottom: 12px; }
 
-        /* ========= 产品网格样式 (参考 uniipc 风格) ========= */
+        /* 产品网格样式 */
         .product-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -98,6 +98,45 @@
             line-height: 1.4;
         }
 
+        /* 关于我们页面新增的门头照卡片样式 (用于about页展示公司实景) */
+        .about-photo-card {
+            background: #ffffff;
+            border-radius: 32px;
+            overflow: hidden;
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.1);
+            transition: transform 0.25s ease;
+            margin-top: 20px;
+        }
+        .about-photo-card:hover {
+            transform: translateY(-4px);
+        }
+        .company-portrait {
+            width: 100%;
+            display: block;
+            object-fit: cover;
+            background-color: #eef2f6;
+            border-bottom: 1px solid #eef2f8;
+        }
+        .img-caption {
+            padding: 1rem 1.2rem;
+            background: #ffffff;
+            text-align: center;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #475569;
+            border-top: 1px solid #f0f2f5;
+        }
+        .about-detail-text {
+            background: #f9fafc;
+            border-radius: 28px;
+            padding: 24px;
+            margin-top: 20px;
+        }
+        .about-detail-text p {
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
         @media (max-width: 768px) {
             .nav-links { display: none; width: 100%; flex-direction: column; gap: 20px; padding: 24px 0 16px; }
             .nav-links.show { display: flex; }
@@ -108,6 +147,7 @@
             .product-grid { gap: 16px; }
             .product-card h3 { font-size: 1rem; margin: 12px 12px 4px; }
             .product-card p { font-size: 0.8rem; margin: 0 12px 14px; }
+            .about-photo-card { margin: 10px 0; }
         }
     </style>
 </head>
@@ -130,11 +170,12 @@
 </nav>
 
 <main>
-    <!-- Hero Section -->
+    <!-- Hero Section (动态内容由JS接管) -->
     <section id="hero-section">
-        <div class="container hero">
+        <div class="container hero" id="heroContainer">
+            <!-- 初始首页内容，会被JS存储和渲染 -->
             <div class="hero-content">
-                <span class="hero-badge" id="heroBadge"><i class="fas fa-chart-line"></i> <span data-i18n="hero.badge">创新驱动 · 智引未来</span></span>
+                <span class="hero-badge"><i class="fas fa-chart-line"></i> <span data-i18n="hero.badge">创新驱动 · 智引未来</span></span>
                 <h1 class="hero-title" id="heroTitle"><span data-i18n="hero.title1">让技术更有温度，</span><br><span data-i18n="hero.title2">为企业增长赋能</span></h1>
                 <p class="hero-desc" id="heroDesc" data-i18n="hero.desc">上海赞硕信息技术有限公司提供从硬件设计到数字化实施的全链路服务，助力传统企业拥抱智能时代。</p>
                 <a href="#" id="heroCtaBtn" class="btn-primary" data-i18n="hero.cta">开始合作 <i class="fas fa-arrow-right"></i></a>
@@ -154,23 +195,23 @@
                 <div class="service-card">
                     <div class="service-icon"><i class="fas fa-microchip"></i></div>
                     <h3 data-i18n="service1.title">智能系统开发</h3>
-                    <p data-i18n="service1.desc"></p>
+                    <p data-i18n="service1.desc">根据工业场景定制搭建开发平台，集成智能显示模块与工业视觉系统，全面提升自动化效率。</p>
                 </div>
                 <div class="service-card">
                     <div class="service-icon"><i class="fas fa-chart-pie"></i></div>
                     <h3 data-i18n="service2.title">工业视觉大数据分析及可视化硬件集成</h3>
-                    <p data-i18n="service2.desc"></p>
+                    <p data-i18n="service2.desc">AI大数据分析、机器人引导、行为分析软件及硬件、工业数据可视化互动界面，提升决策科学性与业务洞察力。</p>
                 </div>
                 <div class="service-card">
                     <div class="service-icon"><i class="fas fa-cloud"></i></div>
                     <h3 data-i18n="service3.title">工业AI模块定制</h3>
-                    <p data-i18n="service3.desc"></p>
+                    <p data-i18n="service3.desc">自动化驾驶舱、智能防护系统、边缘计算网关及AI云平台深度定制，赋能工业智能化升级。</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 产品展示区域 (卡片网格布局，参考 uniipc 风格) -->
+    <!-- 产品展示区域 (卡片网格) -->
     <section id="product-showcase" style="padding: 60px 0; background: #ffffff;">
         <div class="container">
             <div style="text-align: center;">
@@ -178,126 +219,19 @@
                 <p class="section-sub" data-i18n="products.sub" style="margin-left: auto; margin-right: auto;">高品质工业显示与计算平台，支持ODM/OEM定制</p>
             </div>
             <div class="product-grid" id="productGrid">
-                <!-- 产品卡片 1 -->
-                <div class="product-card">
-                    <a href="#" class="product-link">
-                        <div class="product-img-wrapper">
-                            <img src="https://picsum.photos/id/0/400/300" alt="工业显示器" loading="lazy">
-                        </div>
-                        <h3 data-i18n="product1.name">工业显示器</h3>
-                        <p data-i18n="product1.desc">10.1"~21.5" 高亮/宽温/触摸可选</p>
-                    </a>
-                </div>
-                <!-- 产品卡片 2 -->
-                <div class="product-card">
-                    <a href="#" class="product-link">
-                        <div class="product-img-wrapper">
-                            <img src="https://picsum.photos/id/1/400/300" alt="工控一体机" loading="lazy">
-                        </div>
-                        <h3 data-i18n="product2.name">工控一体机</h3>
-                        <p data-i18n="product2.desc">无风扇设计，支持J1900/i5/i7</p>
-                    </a>
-                </div>
-                <!-- 产品卡片 3 -->
-                <div class="product-card">
-                    <a href="#" class="product-link">
-                        <div class="product-img-wrapper">
-                            <img src="https://picsum.photos/id/20/400/300" alt="工业平板电脑" loading="lazy">
-                        </div>
-                        <h3 data-i18n="product3.name">工业平板电脑</h3>
-                        <p data-i18n="product3.desc">高防护等级，纯平面板</p>
-                    </a>
-                </div>
-                <!-- 产品卡片 4 -->
-                <div class="product-card">
-                    <a href="#" class="product-link">
-                        <div class="product-img-wrapper">
-                            <img src="https://picsum.photos/id/26/400/300" alt="工业计算机" loading="lazy">
-                        </div>
-                        <h3 data-i18n="product4.name">工业计算机</h3>
-                        <p data-i18n="product4.desc">Mini-ITX/PICO-ITX 全系列</p>
-                    </a>
-                </div>
-                <!-- 产品卡片 5 -->
-                <div class="product-card">
-                    <a href="#" class="product-link">
-                        <div class="product-img-wrapper">
-                            <img src="https://picsum.photos/id/24/400/300" alt="工业主板" loading="lazy">
-                        </div>
-                        <h3 data-i18n="product5.name">工业主板</h3>
-                        <p data-i18n="product5.desc">ATX/Mini-ITX/PICO-ITX全系列</p>
-                    </a>
-                </div>
-                <!-- 产品卡片 6 -->
-                <div class="product-card">
-                    <a href="#" class="product-link">
-                        <div class="product-img-wrapper">
-                            <img src="https://picsum.photos/id/33/400/300" alt="加固产品" loading="lazy">
-                        </div>
-                        <h3 data-i18n="product6.name">加固产品</h3>
-                        <p data-i18n="product6.desc">三防/宽温/抗振动设计</p>
-                    </a>
-                </div>
-                <!-- 产品卡片 7: 智能驾驶舱 -->
-                <div class="product-card">
-                    <a href="#" class="product-link">
-                        <div class="product-img-wrapper">
-                            <img src="https://picsum.photos/id/111/400/300" alt="智能驾驶舱" loading="lazy">
-                        </div>
-                        <h3 data-i18n="product7.name">智能驾驶舱</h3>
-                        <p data-i18n="product7.desc">多屏联动/语音交互/ADAS集成</p>
-                    </a>
-                </div>
-                <!-- 产品卡片 8: 无人机飞控系统 -->
-                <div class="product-card">
-                    <a href="#" class="product-link">
-                        <div class="product-img-wrapper">
-                            <img src="https://picsum.photos/id/95/400/300" alt="无人机飞控系统" loading="lazy">
-                        </div>
-                        <h3 data-i18n="product8.name">无人机飞控系统</h3>
-                        <p data-i18n="product8.desc">高精度导航/自主飞行/实时图传</p>
-                    </a>
-                </div>
-                <!-- 产品卡片 9: 工业用触摸屏 -->
-                <div class="product-card">
-                    <a href="#" class="product-link">
-                        <div class="product-img-wrapper">
-                            <img src="https://picsum.photos/id/152/400/300" alt="工业用触摸屏" loading="lazy">
-                        </div>
-                        <h3 data-i18n="product9.name">工业用触摸屏</h3>
-                        <p data-i18n="product9.desc">投射电容/电阻式/手套触摸/宽温</p>
-                    </a>
-                </div>
-                <!-- 产品卡片 10: 工业3D相机系统集成 -->
-                <div class="product-card">
-                    <a href="#" class="product-link">
-                        <div class="product-img-wrapper">
-                            <img src="https://picsum.photos/id/96/400/300" alt="工业3D相机系统集成" loading="lazy">
-                        </div>
-                        <h3 data-i18n="product10.name">工业3D相机系统集成</h3>
-                        <p data-i18n="product10.desc">双目/结构光/激光轮廓仪 高精度3D视觉方案</p>
-                    </a>
-                </div>
-                <!-- 产品卡片 11: 工业传感器 -->
-                <div class="product-card">
-                    <a href="#" class="product-link">
-                        <div class="product-img-wrapper">
-                            <img src="https://picsum.photos/id/88/400/300" alt="工业传感器" loading="lazy">
-                        </div>
-                        <h3 data-i18n="product11.name">工业传感器</h3>
-                        <p data-i18n="product11.desc">压力/温度/位移/振动/接近开关全系列</p>
-                    </a>
-                </div>
-                <!-- 产品卡片 12: 激光雷达 (新增) -->
-                <div class="product-card">
-                    <a href="#" class="product-link">
-                        <div class="product-img-wrapper">
-                            <img src="https://picsum.photos/id/92/400/300" alt="激光雷达" loading="lazy">
-                        </div>
-                        <h3 data-i18n="product12.name">激光雷达</h3>
-                        <p data-i18n="product12.desc">多线束/固态/机械式 高精度3D感知与建图</p>
-                    </a>
-                </div>
+                <!-- 产品卡片列表 12项 -->
+                <div class="product-card"><a href="#" class="product-link"><div class="product-img-wrapper"><img src="https://picsum.photos/id/0/400/300" alt="工业显示器" loading="lazy"></div><h3 data-i18n="product1.name">工业显示器</h3><p data-i18n="product1.desc">10.1"~21.5" 高亮/宽温/触摸可选</p></a></div>
+                <div class="product-card"><a href="#" class="product-link"><div class="product-img-wrapper"><img src="https://picsum.photos/id/1/400/300" alt="工控一体机" loading="lazy"></div><h3 data-i18n="product2.name">工控一体机</h3><p data-i18n="product2.desc">无风扇设计，支持J1900/i5/i7</p></a></div>
+                <div class="product-card"><a href="#" class="product-link"><div class="product-img-wrapper"><img src="https://picsum.photos/id/20/400/300" alt="工业平板电脑" loading="lazy"></div><h3 data-i18n="product3.name">工业平板电脑</h3><p data-i18n="product3.desc">高防护等级，纯平面板</p></a></div>
+                <div class="product-card"><a href="#" class="product-link"><div class="product-img-wrapper"><img src="https://picsum.photos/id/26/400/300" alt="工业计算机" loading="lazy"></div><h3 data-i18n="product4.name">工业计算机</h3><p data-i18n="product4.desc">Mini-ITX/PICO-ITX 全系列</p></a></div>
+                <div class="product-card"><a href="#" class="product-link"><div class="product-img-wrapper"><img src="https://picsum.photos/id/24/400/300" alt="工业主板" loading="lazy"></div><h3 data-i18n="product5.name">工业主板</h3><p data-i18n="product5.desc">ATX/Mini-ITX/PICO-ITX全系列</p></a></div>
+                <div class="product-card"><a href="#" class="product-link"><div class="product-img-wrapper"><img src="https://picsum.photos/id/33/400/300" alt="加固产品" loading="lazy"></div><h3 data-i18n="product6.name">加固产品</h3><p data-i18n="product6.desc">三防/宽温/抗振动设计</p></a></div>
+                <div class="product-card"><a href="#" class="product-link"><div class="product-img-wrapper"><img src="https://picsum.photos/id/111/400/300" alt="智能驾驶舱" loading="lazy"></div><h3 data-i18n="product7.name">智能驾驶舱</h3><p data-i18n="product7.desc">多屏联动/语音交互/ADAS集成</p></a></div>
+                <div class="product-card"><a href="#" class="product-link"><div class="product-img-wrapper"><img src="https://picsum.photos/id/95/400/300" alt="无人机飞控系统" loading="lazy"></div><h3 data-i18n="product8.name">无人机飞控系统</h3><p data-i18n="product8.desc">高精度导航/自主飞行/实时图传</p></a></div>
+                <div class="product-card"><a href="#" class="product-link"><div class="product-img-wrapper"><img src="https://picsum.photos/id/152/400/300" alt="工业用触摸屏" loading="lazy"></div><h3 data-i18n="product9.name">工业用触摸屏</h3><p data-i18n="product9.desc">投射电容/电阻式/手套触摸/宽温</p></a></div>
+                <div class="product-card"><a href="#" class="product-link"><div class="product-img-wrapper"><img src="https://picsum.photos/id/96/400/300" alt="工业3D相机系统集成" loading="lazy"></div><h3 data-i18n="product10.name">工业3D相机系统集成</h3><p data-i18n="product10.desc">双目/结构光/激光轮廓仪 高精度3D视觉方案</p></a></div>
+                <div class="product-card"><a href="#" class="product-link"><div class="product-img-wrapper"><img src="https://picsum.photos/id/88/400/300" alt="工业传感器" loading="lazy"></div><h3 data-i18n="product11.name">工业传感器</h3><p data-i18n="product11.desc">压力/温度/位移/振动/接近开关全系列</p></a></div>
+                <div class="product-card"><a href="#" class="product-link"><div class="product-img-wrapper"><img src="https://picsum.photos/id/92/400/300" alt="激光雷达" loading="lazy"></div><h3 data-i18n="product12.name">激光雷达</h3><p data-i18n="product12.desc">多线束/固态/机械式 高精度3D感知与建图</p></a></div>
             </div>
         </div>
     </section>
@@ -316,221 +250,162 @@
 </footer>
 
 <script>
-    // 中英文语言包 (完整匹配)
+    // ======================= 中英文语言包 =======================
     const translations = {
         zh: {
-            "nav.home": "首页",
-            "nav.about": "关于我们",
-            "nav.products": "产品展示",
-            "nav.contact": "联系我们",
-            "hero.badge": "创新驱动 · 智引未来",
-            "hero.title1": "让技术更有温度，",
-            "hero.title2": "为企业增长赋能",
+            "nav.home": "首页", "nav.about": "关于我们", "nav.products": "产品展示", "nav.contact": "联系我们",
+            "hero.badge": "创新驱动 · 智引未来", "hero.title1": "让技术更有温度，", "hero.title2": "为企业增长赋能",
             "hero.desc": "上海赞硕信息技术有限公司提供从硬件设计到数字化实施的全链路服务，助力传统企业拥抱智能时代。",
             "hero.cta": "开始合作",
-            "services.title": "专注 · 专业 · 共创",
-            "services.sub": "为您提供高效的数字硬件产品与解决方案，驱动业务持续增长。",
-            "service1.title": "智能系统开发",
-            "service1.desc": "根据工业场景定制搭建开发平台，集成智能显示模块与工业视觉系统，全面提升自动化效率。",
-            "service2.title": "工业视觉大数据分析及可视化硬件集成",
-            "service2.desc": "AI大数据分析、机器人引导、行为分析软件及硬件、工业数据可视化互动界面，提升决策科学性与业务洞察力。",
-            "service3.title": "工业AI模块定制",
-            "service3.desc": "自动化驾驶舱、智能防护系统、边缘计算网关及AI云平台深度定制，赋能工业智能化升级。",
-            "products.title": "产品中心",
-            "products.sub": "高品质工业显示与计算平台，支持ODM/OEM定制",
-            "product1.name": "工业显示器",
-            "product1.desc": "10.1\"~21.5\" 高亮/宽温/触摸可选",
-            "product2.name": "工控一体机",
-            "product2.desc": "无风扇设计，支持J1900/i5/i7",
-            "product3.name": "工业平板电脑",
-            "product3.desc": "高防护等级，纯平面板",
-            "product4.name": "工业计算机",
-            "product4.desc": "Mini-ITX/PICO-ITX 全系列",
-            "product5.name": "工业主板",
-            "product5.desc": "ATX/Mini-ITX/PICO-ITX全系列",
-            "product6.name": "加固产品",
-            "product6.desc": "三防/宽温/抗振动设计",
-            "product7.name": "智能驾驶舱",
-            "product7.desc": "多屏联动/语音交互/ADAS集成",
-            "product8.name": "无人机飞控系统",
-            "product8.desc": "高精度导航/自主飞行/实时图传",
-            "product9.name": "工业用触摸屏",
-            "product9.desc": "投射电容/电阻式/手套触摸/宽温",
-            "product10.name": "工业3D相机系统集成",
-            "product10.desc": "双目/结构光/激光轮廓仪 高精度3D视觉方案",
-            "product11.name": "工业传感器",
-            "product11.desc": "压力/温度/位移/振动/接近开关全系列",
-            "product12.name": "激光雷达",
-            "product12.desc": "多线束/固态/机械式 高精度3D感知与建图",
-            "footer.company": "上海赞硕信息技术有限公司",
-            "footer.slogan": "企业数字化转型伙伴",
-            "footer.copyright": "© 2025 zensoinfo 版权所有",
-            "footer.quickLinks": "快速链接",
-            "footer.support": "服务支持",
-            "footer.docs": "文档中心",
-            "footer.techSupport": "技术支持",
-            "footer.privacy": "隐私政策",
-            "footer.follow": "关注我们",
-            "footer.address": "地址：上海市易富路100弄2号楼6楼 | 邮箱：1019wzh@sina.com | 电话：+86 13916653909"
+            "services.title": "专注 · 专业 · 共创", "services.sub": "为您提供高效的数字硬件产品与解决方案，驱动业务持续增长。",
+            "service1.title": "智能系统开发", "service1.desc": "根据工业场景定制搭建开发平台，集成智能显示模块与工业视觉系统，全面提升自动化效率。",
+            "service2.title": "工业视觉大数据分析及可视化硬件集成", "service2.desc": "AI大数据分析、机器人引导、行为分析软件及硬件、工业数据可视化互动界面，提升决策科学性与业务洞察力。",
+            "service3.title": "工业AI模块定制", "service3.desc": "自动化驾驶舱、智能防护系统、边缘计算网关及AI云平台深度定制，赋能工业智能化升级。",
+            "products.title": "产品中心", "products.sub": "高品质工业显示与计算平台，支持ODM/OEM定制",
+            "product1.name": "工业显示器", "product1.desc": "10.1\"~21.5\" 高亮/宽温/触摸可选",
+            "product2.name": "工控一体机", "product2.desc": "无风扇设计，支持J1900/i5/i7",
+            "product3.name": "工业平板电脑", "product3.desc": "高防护等级，纯平面板",
+            "product4.name": "工业计算机", "product4.desc": "Mini-ITX/PICO-ITX 全系列",
+            "product5.name": "工业主板", "product5.desc": "ATX/Mini-ITX/PICO-ITX全系列",
+            "product6.name": "加固产品", "product6.desc": "三防/宽温/抗振动设计",
+            "product7.name": "智能驾驶舱", "product7.desc": "多屏联动/语音交互/ADAS集成",
+            "product8.name": "无人机飞控系统", "product8.desc": "高精度导航/自主飞行/实时图传",
+            "product9.name": "工业用触摸屏", "product9.desc": "投射电容/电阻式/手套触摸/宽温",
+            "product10.name": "工业3D相机系统集成", "product10.desc": "双目/结构光/激光轮廓仪 高精度3D视觉方案",
+            "product11.name": "工业传感器", "product11.desc": "压力/温度/位移/振动/接近开关全系列",
+            "product12.name": "激光雷达", "product12.desc": "多线束/固态/机械式 高精度3D感知与建图",
+            "footer.company": "上海赞硕信息技术有限公司", "footer.slogan": "企业数字化转型伙伴", "footer.copyright": "© 2025 zensoinfo 版权所有",
+            "footer.quickLinks": "快速链接", "footer.support": "服务支持", "footer.docs": "文档中心", "footer.techSupport": "技术支持", "footer.privacy": "隐私政策", "footer.follow": "关注我们",
+            "footer.address": "地址：上海市易富路100弄2号楼6楼 | 邮箱：1019wzh@sina.com | 电话：+86 13916653909",
+            "about.title": "关于赞硕", "about.subtitle": "创新致远，可信赖的数字化伙伴", "about.desc1": "上海赞硕信息技术有限公司成立于2015年，专注于企业级软硬件集成、智能系统定制与云端数字化转型，已服务200+行业客户。", "about.desc2": "公司坐落于上海张江科学城，凭借卓越的技术实力和交付能力，获得国家高新技术企业认证。我们致力于通过工业物联网、边缘计算和AI视觉技术，为客户构建面向未来的智能工厂与数字化运营体系。", "about.photo.caption": "上海赞硕信息技术有限公司 · 总部实景"
         },
         en: {
-            "nav.home": "Home",
-            "nav.about": "About Us",
-            "nav.products": "Products",
-            "nav.contact": "Contact",
-            "hero.badge": "Innovation Driven · Smart Future",
-            "hero.title1": "Making Technology More Human,",
-            "hero.title2": "Empowering Business Growth",
+            "nav.home": "Home", "nav.about": "About Us", "nav.products": "Products", "nav.contact": "Contact",
+            "hero.badge": "Innovation Driven · Smart Future", "hero.title1": "Making Technology More Human,", "hero.title2": "Empowering Business Growth",
             "hero.desc": "Shanghai Zensoinfo provides end-to-end services from hardware design to digital implementation, helping traditional enterprises embrace the intelligent era.",
             "hero.cta": "Start Collaborating",
-            "services.title": "Dedicated · Professional · Co-creation",
-            "services.sub": "High-performance digital hardware products and solutions to drive sustainable business growth.",
-            "service1.title": "Smart System Development",
-            "service1.desc": "Tailored development platforms for industrial scenarios, integrating smart display modules and industrial vision systems to maximize automation efficiency.",
-            "service2.title": "Industrial Vision Analytics & Hardware Integration",
-            "service2.desc": "AI-powered big data analytics, robot guidance, behavior analysis software/hardware, and industrial data visualization interfaces for smarter decisions and deeper insights.",
-            "service3.title": "Industrial AI Module Customization",
-            "service3.desc": "Customized automated driving cockpit, intelligent protection systems, edge computing gateways and AI cloud platforms for intelligent industrial upgrades.",
-            "products.title": "Product Center",
-            "products.sub": "High-quality industrial displays & computing platforms, ODM/OEM ready",
-            "product1.name": "Industrial Monitor",
-            "product1.desc": "10.1\"~21.5\" high brightness / wide temp / touch optional",
-            "product2.name": "HMI Panel PC",
-            "product2.desc": "Fanless design, J1900/i5/i7 options",
-            "product3.name": "Industrial Tablet",
-            "product3.desc": "High ingress protection, flat bezel",
-            "product4.name": "Industrial Computer",
-            "product4.desc": "Mini-ITX/PICO-ITX full series",
-            "product5.name": "Industrial Motherboard",
-            "product5.desc": "ATX/Mini-ITX/PICO-ITX full series",
-            "product6.name": "Rugged Products",
-            "product6.desc": "Waterproof/wide-temp/vibration-resistant design",
-            "product7.name": "Smart Cockpit",
-            "product7.desc": "Multi-screen display/Voice interaction/ADAS integration",
-            "product8.name": "UAV Flight Control System",
-            "product8.desc": "High-precision navigation/Autonomous flight/Real-time video transmission",
-            "product9.name": "Industrial Touch Screen",
-            "product9.desc": "Projected capacitive/Resistive/Glove touch/Wide temperature",
-            "product10.name": "Industrial 3D Camera System Integration",
-            "product10.desc": "Stereo vision/Structured light/Laser profiler - High precision 3D vision solutions",
-            "product11.name": "Industrial Sensors",
-            "product11.desc": "Pressure/Temperature/Displacement/Vibration/Proximity switches full series",
-            "product12.name": "LiDAR",
-            "product12.desc": "Multi-beam/Solid-state/Mechanical - High precision 3D perception & mapping",
-            "footer.company": "Shanghai Zensoinfo Co., Ltd.",
-            "footer.slogan": "Your Digital Transformation Partner",
-            "footer.copyright": "© 2025 Zensoinfo. All rights reserved.",
-            "footer.quickLinks": "Quick Links",
-            "footer.support": "Support",
-            "footer.docs": "Documentation",
-            "footer.techSupport": "Tech Support",
-            "footer.privacy": "Privacy Policy",
-            "footer.follow": "Follow Us",
-            "footer.address": "Address: 6F, Bldg 2, Lane 100, Yifu Road, Shanghai | Email: 1019wzh@sina.com | Tel: +86 13916653909"
+            "services.title": "Dedicated · Professional · Co-creation", "services.sub": "High-performance digital hardware products and solutions to drive sustainable business growth.",
+            "service1.title": "Smart System Development", "service1.desc": "Tailored development platforms for industrial scenarios, integrating smart display modules and industrial vision systems to maximize automation efficiency.",
+            "service2.title": "Industrial Vision Analytics & Hardware Integration", "service2.desc": "AI-powered big data analytics, robot guidance, behavior analysis software/hardware, and industrial data visualization interfaces for smarter decisions and deeper insights.",
+            "service3.title": "Industrial AI Module Customization", "service3.desc": "Customized automated driving cockpit, intelligent protection systems, edge computing gateways and AI cloud platforms for intelligent industrial upgrades.",
+            "products.title": "Product Center", "products.sub": "High-quality industrial displays & computing platforms, ODM/OEM ready",
+            "product1.name": "Industrial Monitor", "product1.desc": "10.1\"~21.5\" high brightness / wide temp / touch optional",
+            "product2.name": "HMI Panel PC", "product2.desc": "Fanless design, J1900/i5/i7 options",
+            "product3.name": "Industrial Tablet", "product3.desc": "High ingress protection, flat bezel",
+            "product4.name": "Industrial Computer", "product4.desc": "Mini-ITX/PICO-ITX full series",
+            "product5.name": "Industrial Motherboard", "product5.desc": "ATX/Mini-ITX/PICO-ITX full series",
+            "product6.name": "Rugged Products", "product6.desc": "Waterproof/wide-temp/vibration-resistant design",
+            "product7.name": "Smart Cockpit", "product7.desc": "Multi-screen display/Voice interaction/ADAS integration",
+            "product8.name": "UAV Flight Control System", "product8.desc": "High-precision navigation/Autonomous flight/Real-time video transmission",
+            "product9.name": "Industrial Touch Screen", "product9.desc": "Projected capacitive/Resistive/Glove touch/Wide temperature",
+            "product10.name": "Industrial 3D Camera System Integration", "product10.desc": "Stereo vision/Structured light/Laser profiler - High precision 3D vision solutions",
+            "product11.name": "Industrial Sensors", "product11.desc": "Pressure/Temperature/Displacement/Vibration/Proximity switches full series",
+            "product12.name": "LiDAR", "product12.desc": "Multi-beam/Solid-state/Mechanical - High precision 3D perception & mapping",
+            "footer.company": "Shanghai Zensoinfo Co., Ltd.", "footer.slogan": "Your Digital Transformation Partner", "footer.copyright": "© 2025 Zensoinfo. All rights reserved.",
+            "footer.quickLinks": "Quick Links", "footer.support": "Support", "footer.docs": "Documentation", "footer.techSupport": "Tech Support", "footer.privacy": "Privacy Policy", "footer.follow": "Follow Us",
+            "footer.address": "Address: 6F, Bldg 2, Lane 100, Yifu Road, Shanghai | Email: 1019wzh@sina.com | Tel: +86 13916653909",
+            "about.title": "About Zensoinfo", "about.subtitle": "Innovation & Trust: Your Digital Partner", "about.desc1": "Founded in 2015, Shanghai Zensoinfo specializes in enterprise-grade software/hardware integration, custom smart systems, and cloud digital transformation, serving 200+ industry clients.", "about.desc2": "Based in Zhangjiang Science City, we are a National High-Tech Enterprise, dedicated to building future-ready smart factories and digital operations with IIoT, Edge Computing, and AI vision.", "about.photo.caption": "Shanghai Zensoinfo · Headquarters"
         }
     };
 
     let currentLang = 'zh';
+    let originalHeroHTML = null;
 
-    // 动态更新页面所有带 data-i18n 属性的元素
     function updateLanguage(lang) {
-        const elements = document.querySelectorAll('[data-i18n]');
-        elements.forEach(el => {
+        document.querySelectorAll('[data-i18n]').forEach(el => {
             const key = el.getAttribute('data-i18n');
             if (translations[lang] && translations[lang][key]) {
-                if (el.id === 'heroCtaBtn' && el.innerHTML.includes('<i')) {
-                    const arrowIcon = '<i class="fas fa-arrow-right"></i>';
-                    el.innerHTML = translations[lang][key] + ' ' + arrowIcon;
-                } 
-                else if (el.parentElement && el.parentElement.id === 'heroBadge' && el.tagName === 'SPAN') {
-                    el.innerText = translations[lang][key];
-                }
-                else {
-                    el.innerText = translations[lang][key];
-                }
+                if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') el.placeholder = translations[lang][key];
+                else el.innerText = translations[lang][key];
             }
         });
-        
-        // 单独处理 hero-title 因为包含换行
         const heroTitleElem = document.getElementById('heroTitle');
-        if (heroTitleElem) {
-            const title1 = translations[lang]["hero.title1"];
-            const title2 = translations[lang]["hero.title2"];
-            heroTitleElem.innerHTML = `${title1}<br>${title2}`;
+        if (heroTitleElem && currentPage === 'home') {
+            heroTitleElem.innerHTML = `${translations[lang]["hero.title1"]}<br>${translations[lang]["hero.title2"]}`;
         }
-        
-        // 处理 heroBadge 中的独立 span
-        const heroBadgeSpan = document.querySelector('#heroBadge span');
-        if (heroBadgeSpan && heroBadgeSpan.getAttribute('data-i18n') === 'hero.badge') {
-            heroBadgeSpan.innerText = translations[lang]["hero.badge"];
-        }
-        
-        // 更新语言按钮样式
         document.querySelectorAll('.lang-btn').forEach(btn => {
-            if (btn.getAttribute('data-lang') === lang) {
-                btn.classList.add('active');
-            } else {
-                btn.classList.remove('active');
-            }
+            if (btn.getAttribute('data-lang') === lang) btn.classList.add('active');
+            else btn.classList.remove('active');
         });
-        
         document.title = lang === 'zh' ? "上海赞硕信息技术有限公司Zensoinfo | 首页" : "Shanghai Zensoinfo | Home";
+        if (currentPage === 'about') renderAboutPage(lang);
+        if (currentPage === 'home' && document.getElementById('heroContainer') && originalHeroHTML && !document.getElementById('heroContainer').innerHTML.includes('about-photo-card')) {
+            // 保证首页内容完整
+        }
     }
 
-    // 页面导航逻辑
+    let currentPage = 'home';
+
+    // 渲染关于我们页面 (重点：添加公司门头照)
+    function renderAboutPage(lang) {
+        const heroContainer = document.getElementById('heroContainer');
+        if (!heroContainer) return;
+        const isZh = lang === 'zh';
+        const aboutHTML = `
+            <div class="hero-content" style="flex:1;">
+                <span class="hero-badge"><i class="fas fa-building"></i> ${isZh ? '关于赞硕' : 'About Zensoinfo'}</span>
+                <h1 class="hero-title">${isZh ? '创新致远，可信赖的数字化伙伴' : 'Innovation & Trust: Your Digital Partner'}</h1>
+                <p class="hero-desc">${isZh ? '上海赞硕信息技术有限公司成立于2015年，专注于企业级软硬件集成、智能系统定制与云端数字化转型，已服务200+行业客户。' : 'Founded in 2015, Shanghai Zensoinfo specializes in enterprise-grade software/hardware integration, custom smart systems, and cloud digital transformation, serving 200+ industry clients.'}</p>
+                <div class="about-detail-text">
+                    <p>${isZh ? '公司坐落于上海张江科学城，凭借卓越的技术实力和交付能力，获得国家高新技术企业认证。我们致力于通过工业物联网、边缘计算和AI视觉技术，为客户构建面向未来的智能工厂与数字化运营体系。' : 'Based in Zhangjiang Science City, we are a National High-Tech Enterprise, dedicated to building future-ready smart factories and digital operations with IIoT, Edge Computing, and AI vision.'}</p>
+                    <p><i class="fas fa-check-circle" style="color:#2563eb;"></i> ${isZh ? '10+年技术沉淀 · 200+成功案例 · 客户满意度98%' : '10+ years experience · 200+ successful cases · 98% satisfaction'}</p>
+                </div>
+                <a href="#" id="aboutBackHome" class="btn-primary" style="margin-top:10px;">${isZh ? '返回首页' : 'Back to Home'} <i class="fas fa-arrow-left"></i></a>
+            </div>
+            <div class="hero-image" style="flex:1;">
+                <!-- 公司门头照片卡片：此处加入上传的图片附件2 -->
+                <div class="about-photo-card">
+                    <img class="company-portrait" src="上海赞硕信息技术有限公司门头照.jpg" alt="上海赞硕信息技术有限公司门头照" style="width:100%; height:auto; aspect-ratio:4/3; object-fit:cover;" 
+                         onerror="this.onerror=null; this.src='https://placehold.co/600x450/2563eb/white?text=Zensoinfo+Office';">
+                    <div class="img-caption">
+                        <i class="fas fa-location-dot"></i> ${translations[lang]["about.photo.caption"] || (isZh ? '上海赞硕信息技术有限公司 · 总部实景' : 'Shanghai Zensoinfo · Headquarters')}
+                    </div>
+                </div>
+            </div>
+        `;
+        heroContainer.innerHTML = aboutHTML;
+        const backBtn = document.getElementById('aboutBackHome');
+        if (backBtn) backBtn.addEventListener('click', (e) => { e.preventDefault(); handleNavigation('home', currentLang); });
+    }
+
     function handleNavigation(page, lang) {
+        currentPage = page;
         const servicesSection = document.getElementById('services-section');
         const productShowcase = document.getElementById('product-showcase');
-        const heroContainer = document.querySelector('#hero-section .container.hero');
+        const heroContainer = document.getElementById('heroContainer');
         
         if (page === 'home') {
             if (servicesSection) servicesSection.style.display = 'block';
             if (productShowcase) productShowcase.style.display = 'block';
-            if (window.originalHeroHTML && heroContainer && !heroContainer.hasAttribute('data-restored')) {
-                heroContainer.innerHTML = window.originalHeroHTML;
-                heroContainer.setAttribute('data-restored', 'true');
-                const ctaNew = document.getElementById('heroCtaBtn');
-                if (ctaNew) {
-                    const newCta = ctaNew.cloneNode(true);
-                    ctaNew.parentNode.replaceChild(newCta, ctaNew);
-                    newCta.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        handleNavigation('contact', currentLang);
-                    });
-                }
+            if (heroContainer && originalHeroHTML) {
+                heroContainer.innerHTML = originalHeroHTML;
+                const ctaBtn = document.getElementById('heroCtaBtn');
+                if (ctaBtn) ctaBtn.addEventListener('click', (e) => { e.preventDefault(); handleNavigation('contact', currentLang); });
                 updateLanguage(currentLang);
-            } else if (heroContainer && !window.originalHeroHTML) {
-                window.originalHeroHTML = heroContainer.innerHTML;
-            } else if (heroContainer) {
-                updateLanguage(currentLang);
+            } else if (heroContainer && !originalHeroHTML) {
+                originalHeroHTML = heroContainer.innerHTML;
+                const ctaBtn = document.getElementById('heroCtaBtn');
+                if (ctaBtn) ctaBtn.addEventListener('click', (e) => { e.preventDefault(); handleNavigation('contact', currentLang); });
             }
             setActiveNav('home');
         } 
         else if (page === 'about') {
             if (servicesSection) servicesSection.style.display = 'none';
             if (productShowcase) productShowcase.style.display = 'none';
-            const aboutHtml = `<div class="hero-content" style="flex:1;">
-                <span class="hero-badge"><i class="fas fa-building"></i> ${currentLang === 'zh' ? '关于赞硕' : 'About Zensoinfo'}</span>
-                <h1 class="hero-title">${currentLang === 'zh' ? '创新致远，可信赖的数字化伙伴' : 'Innovation & Trust: Your Digital Partner'}</h1>
-                <p class="hero-desc">${currentLang === 'zh' ? '上海赞硕信息技术有限公司成立于2015年，专注于企业级软硬件集成、智能系统定制与云端数字化转型，已服务200+行业客户。' : 'Founded in 2015, Shanghai Zensoinfo specializes in enterprise-grade software/hardware integration, custom smart systems, and cloud digital transformation, serving 200+ industry clients.'}</p>
-                <a href="#" class="btn-primary" id="aboutBackHome">${currentLang === 'zh' ? '返回首页' : 'Back to Home'} <i class="fas fa-arrow-left"></i></a>
-            </div>
-            <div class="hero-image"><i class="fas fa-chalkboard-user"></i></div>`;
-            if (heroContainer) heroContainer.innerHTML = aboutHtml;
-            const backBtn = document.getElementById('aboutBackHome');
-            if (backBtn) backBtn.addEventListener('click', (e) => { e.preventDefault(); handleNavigation('home', currentLang); });
+            renderAboutPage(lang);
             setActiveNav('about');
         }
         else if (page === 'products') {
             if (servicesSection) servicesSection.style.display = 'none';
             if (productShowcase) productShowcase.style.display = 'block';
-            const productsHtml = `<div class="hero-content" style="flex:1;">
-                <span class="hero-badge"><i class="fas fa-microchip"></i> ${currentLang === 'zh' ? '核心产品' : 'Core Products'}</span>
-                <h1 class="hero-title">${currentLang === 'zh' ? '智能硬件 & 企业软件' : 'Smart Hardware & Enterprise Software'}</h1>
-                <p class="hero-desc">${currentLang === 'zh' ? '边缘计算网关、工业平板、AIoT套件；以及企业级低代码平台、数据中台解决方案。' : 'Edge computing gateways, industrial tablets, AIoT kits; enterprise low-code platforms, data middle platform solutions.'}</p>
-                <a href="#" class="btn-primary" id="productsBackHome">${currentLang === 'zh' ? '返回首页' : 'Back to Home'} <i class="fas fa-arrow-left"></i></a>
-            </div>
-            <div class="hero-image"><i class="fas fa-laptop-code"></i></div>`;
+            let productsHtml = `
+                <div class="hero-content" style="flex:1;">
+                    <span class="hero-badge"><i class="fas fa-microchip"></i> ${lang === 'zh' ? '核心产品' : 'Core Products'}</span>
+                    <h1 class="hero-title">${lang === 'zh' ? '智能硬件 & 企业软件' : 'Smart Hardware & Enterprise Software'}</h1>
+                    <p class="hero-desc">${lang === 'zh' ? '边缘计算网关、工业平板、AIoT套件；以及企业级低代码平台、数据中台解决方案。' : 'Edge computing gateways, industrial tablets, AIoT kits; enterprise low-code platforms, data middle platform solutions.'}</p>
+                    <a href="#" id="productsBackHome" class="btn-primary">${lang === 'zh' ? '返回首页' : 'Back to Home'} <i class="fas fa-arrow-left"></i></a>
+                </div>
+                <div class="hero-image"><i class="fas fa-laptop-code"></i></div>`;
             if (heroContainer) heroContainer.innerHTML = productsHtml;
             const backBtn = document.getElementById('productsBackHome');
             if (backBtn) backBtn.addEventListener('click', (e) => { e.preventDefault(); handleNavigation('home', currentLang); });
@@ -539,18 +414,19 @@
         else if (page === 'contact') {
             if (servicesSection) servicesSection.style.display = 'none';
             if (productShowcase) productShowcase.style.display = 'none';
-            const contactHtml = `<div class="hero-content" style="flex:1;">
-                <span class="hero-badge"><i class="fas fa-envelope"></i> ${currentLang === 'zh' ? '联系团队' : 'Contact Team'}</span>
-                <h1 class="hero-title">${currentLang === 'zh' ? '让我们聊聊您的项目' : 'Let’s talk about your project'}</h1>
-                <p class="hero-desc">${currentLang === 'zh' ? '欢迎随时通过电话、邮件或表单联系我们。专业顾问将在24小时内回复。' : 'Reach us via phone, email, or form. A professional consultant will respond within 24 hours.'}</p>
-                <div style="background:#f8fafc; border-radius: 28px; padding: 20px; margin-top: 20px;">
-                    <p><i class="fas fa-phone-alt"></i> ${currentLang === 'zh' ? '电话: +86 13916653909' : 'Tel: +86 13916653909'}</p>
-                    <p><i class="fas fa-envelope"></i> ${currentLang === 'zh' ? '邮箱: 1019wzh@sina.com' : 'Email: 1019wzh@sina.com'}</p>
-                    <p><i class="fas fa-map-marker-alt"></i> ${currentLang === 'zh' ? '上海市易富路100弄2号楼6楼' : '6F, Bldg 2, Lane 100, Yifu Road, Shanghai'}</p>
+            const contactHtml = `
+                <div class="hero-content" style="flex:1;">
+                    <span class="hero-badge"><i class="fas fa-envelope"></i> ${lang === 'zh' ? '联系团队' : 'Contact Team'}</span>
+                    <h1 class="hero-title">${lang === 'zh' ? '让我们聊聊您的项目' : 'Let’s talk about your project'}</h1>
+                    <p class="hero-desc">${lang === 'zh' ? '欢迎随时通过电话、邮件或表单联系我们。专业顾问将在24小时内回复。' : 'Reach us via phone, email, or form. A professional consultant will respond within 24 hours.'}</p>
+                    <div style="background:#f8fafc; border-radius: 28px; padding: 20px; margin-top: 20px;">
+                        <p><i class="fas fa-phone-alt"></i> ${lang === 'zh' ? '电话: +86 13916653909' : 'Tel: +86 13916653909'}</p>
+                        <p><i class="fas fa-envelope"></i> ${lang === 'zh' ? '邮箱: 1019wzh@sina.com' : 'Email: 1019wzh@sina.com'}</p>
+                        <p><i class="fas fa-map-marker-alt"></i> ${lang === 'zh' ? '上海市易富路100弄2号楼6楼' : '6F, Bldg 2, Lane 100, Yifu Road, Shanghai'}</p>
+                    </div>
+                    <a href="#" id="contactBackHome" class="btn-primary" style="margin-top:20px;">${lang === 'zh' ? '返回首页' : 'Back to Home'} <i class="fas fa-arrow-left"></i></a>
                 </div>
-                <a href="#" class="btn-primary" id="contactBackHome" style="margin-top:20px;">${currentLang === 'zh' ? '返回首页' : 'Back to Home'} <i class="fas fa-arrow-left"></i></a>
-            </div>
-            <div class="hero-image"><i class="fas fa-address-card"></i></div>`;
+                <div class="hero-image"><i class="fas fa-address-card"></i></div>`;
             if (heroContainer) heroContainer.innerHTML = contactHtml;
             const backBtn = document.getElementById('contactBackHome');
             if (backBtn) backBtn.addEventListener('click', (e) => { e.preventDefault(); handleNavigation('home', currentLang); });
@@ -563,11 +439,6 @@
             const linkPage = link.getAttribute('data-nav');
             if (linkPage === page) link.classList.add('active');
             else link.classList.remove('active');
-        });
-        document.querySelectorAll('.footer-col a[data-nav-footer]').forEach(link => {
-            const linkPage = link.getAttribute('data-nav-footer');
-            if (linkPage === page) link.style.color = '#2563eb';
-            else link.style.color = '#475569';
         });
     }
 
@@ -587,12 +458,7 @@
             });
         });
         const ctaBtn = document.getElementById('heroCtaBtn');
-        if (ctaBtn) {
-            ctaBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                handleNavigation('contact', currentLang);
-            });
-        }
+        if (ctaBtn) ctaBtn.addEventListener('click', (e) => { e.preventDefault(); handleNavigation('contact', currentLang); });
     }
 
     function setupLangToggle() {
@@ -602,20 +468,17 @@
                 if (lang === currentLang) return;
                 currentLang = lang;
                 updateLanguage(currentLang);
-                let activePage = 'home';
-                const activeNav = document.querySelector('.nav-links a.active[data-nav]');
-                if (activeNav) activePage = activeNav.getAttribute('data-nav');
-                handleNavigation(activePage, currentLang);
-                updateLanguage(currentLang);
+                if (currentPage === 'about') renderAboutPage(currentLang);
+                else if (currentPage === 'home') handleNavigation('home', currentLang);
+                else if (currentPage === 'products') handleNavigation('products', currentLang);
+                else if (currentPage === 'contact') handleNavigation('contact', currentLang);
             });
         });
     }
 
     function init() {
-        const heroContainerMain = document.querySelector('#hero-section .container.hero');
-        if (heroContainerMain && !window.originalHeroHTML) {
-            window.originalHeroHTML = heroContainerMain.innerHTML;
-        }
+        const heroContainerElem = document.getElementById('heroContainer');
+        if (heroContainerElem && !originalHeroHTML) originalHeroHTML = heroContainerElem.innerHTML;
         updateLanguage('zh');
         initNavigation();
         setupLangToggle();
@@ -625,6 +488,9 @@
         if(document.getElementById('services-section')) document.getElementById('services-section').style.display = 'block';
         if(document.getElementById('product-showcase')) document.getElementById('product-showcase').style.display = 'block';
         setActiveNav('home');
+        currentPage = 'home';
+        const ctaDynamic = document.getElementById('heroCtaBtn');
+        if (ctaDynamic) ctaDynamic.addEventListener('click', (e) => { e.preventDefault(); handleNavigation('contact', currentLang); });
     }
     init();
 </script>
