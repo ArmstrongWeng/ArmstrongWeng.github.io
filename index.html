@@ -98,17 +98,22 @@
             line-height: 1.4;
         }
 
-        /* 关于我们页面新增的门头照卡片样式 (用于about页展示公司实景) */
+        /* 关于我们页面 - 双图展示布局 (门头照 + 企业文化创意图) */
+        .about-visual-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
         .about-photo-card {
             background: #ffffff;
             border-radius: 32px;
             overflow: hidden;
             box-shadow: 0 20px 35px -12px rgba(0,0,0,0.1);
-            transition: transform 0.25s ease;
-            margin-top: 20px;
+            transition: transform 0.25s ease, box-shadow 0.3s ease;
         }
         .about-photo-card:hover {
             transform: translateY(-4px);
+            box-shadow: 0 25px 40px -14px rgba(0,0,0,0.18);
         }
         .company-portrait {
             width: 100%;
@@ -126,6 +131,23 @@
             color: #475569;
             border-top: 1px solid #f0f2f5;
         }
+        .brand-motto-card {
+            background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+            border-radius: 32px;
+            overflow: hidden;
+            box-shadow: 0 12px 28px -8px rgba(0,0,0,0.08);
+            transition: transform 0.25s ease;
+            border: 1px solid #eef2ff;
+        }
+        .brand-motto-card:hover {
+            transform: translateY(-3px);
+        }
+        .creative-img {
+            width: 100%;
+            display: block;
+            object-fit: cover;
+            background: #fff;
+        }
         .about-detail-text {
             background: #f9fafc;
             border-radius: 28px;
@@ -136,7 +158,6 @@
             margin-bottom: 12px;
             line-height: 1.6;
         }
-
         @media (max-width: 768px) {
             .nav-links { display: none; width: 100%; flex-direction: column; gap: 20px; padding: 24px 0 16px; }
             .nav-links.show { display: flex; }
@@ -145,9 +166,7 @@
             .section-title { font-size: 1.8rem; }
             .lang-switch { order: 3; margin-left: 0; justify-content: flex-start; width: 100%; padding-top: 10px; }
             .product-grid { gap: 16px; }
-            .product-card h3 { font-size: 1rem; margin: 12px 12px 4px; }
-            .product-card p { font-size: 0.8rem; margin: 0 12px 14px; }
-            .about-photo-card { margin: 10px 0; }
+            .about-visual-grid { gap: 20px; }
         }
     </style>
 </head>
@@ -277,7 +296,11 @@
             "footer.company": "上海赞硕信息技术有限公司", "footer.slogan": "企业数字化转型伙伴", "footer.copyright": "© 2025 zensoinfo 版权所有",
             "footer.quickLinks": "快速链接", "footer.support": "服务支持", "footer.docs": "文档中心", "footer.techSupport": "技术支持", "footer.privacy": "隐私政策", "footer.follow": "关注我们",
             "footer.address": "地址：上海市易富路100弄2号楼6楼 | 邮箱：1019wzh@sina.com | 电话：+86 13916653909",
-            "about.title": "关于赞硕", "about.subtitle": "创新致远，可信赖的数字化伙伴", "about.desc1": "上海赞硕信息技术有限公司成立于2015年，专注于企业级软硬件集成、智能系统定制与云端数字化转型，已服务200+行业客户。", "about.desc2": "公司坐落于上海张江科学城，凭借卓越的技术实力和交付能力，获得国家高新技术企业认证。我们致力于通过工业物联网、边缘计算和AI视觉技术，为客户构建面向未来的智能工厂与数字化运营体系。", "about.photo.caption": "上海赞硕信息技术有限公司 · 总部实景"
+            "about.title": "关于赞硕", "about.subtitle": "创新致远，可信赖的数字化伙伴", 
+            "about.desc1": "上海赞硕信息技术有限公司成立于2015年，专注于企业级软硬件集成、智能系统定制与云端数字化转型，已服务200+行业客户。", 
+            "about.desc2": "公司坐落于上海张江科学城，凭借卓越的技术实力和交付能力，获得国家高新技术企业认证。我们致力于通过工业物联网、边缘计算和AI视觉技术，为客户构建面向未来的智能工厂与数字化运营体系。",
+            "about.photo.caption": "上海赞硕信息技术有限公司 · 总部实景",
+            "about.motto.caption": "创新 · 速度 · 卓越 — 我们的核心基因"
         },
         en: {
             "nav.home": "Home", "nav.about": "About Us", "nav.products": "Products", "nav.contact": "Contact",
@@ -304,7 +327,11 @@
             "footer.company": "Shanghai Zensoinfo Co., Ltd.", "footer.slogan": "Your Digital Transformation Partner", "footer.copyright": "© 2025 Zensoinfo. All rights reserved.",
             "footer.quickLinks": "Quick Links", "footer.support": "Support", "footer.docs": "Documentation", "footer.techSupport": "Tech Support", "footer.privacy": "Privacy Policy", "footer.follow": "Follow Us",
             "footer.address": "Address: 6F, Bldg 2, Lane 100, Yifu Road, Shanghai | Email: 1019wzh@sina.com | Tel: +86 13916653909",
-            "about.title": "About Zensoinfo", "about.subtitle": "Innovation & Trust: Your Digital Partner", "about.desc1": "Founded in 2015, Shanghai Zensoinfo specializes in enterprise-grade software/hardware integration, custom smart systems, and cloud digital transformation, serving 200+ industry clients.", "about.desc2": "Based in Zhangjiang Science City, we are a National High-Tech Enterprise, dedicated to building future-ready smart factories and digital operations with IIoT, Edge Computing, and AI vision.", "about.photo.caption": "Shanghai Zensoinfo · Headquarters"
+            "about.title": "About Zensoinfo", "about.subtitle": "Innovation & Trust: Your Digital Partner", 
+            "about.desc1": "Founded in 2015, Shanghai Zensoinfo specializes in enterprise-grade software/hardware integration, custom smart systems, and cloud digital transformation, serving 200+ industry clients.", 
+            "about.desc2": "Based in Zhangjiang Science City, we are a National High-Tech Enterprise, dedicated to building future-ready smart factories and digital operations with IIoT, Edge Computing, and AI vision.",
+            "about.photo.caption": "Shanghai Zensoinfo · Headquarters",
+            "about.motto.caption": "Innovation · Speed · Excellence — Our Core DNA"
         }
     };
 
@@ -329,18 +356,16 @@
         });
         document.title = lang === 'zh' ? "上海赞硕信息技术有限公司Zensoinfo | 首页" : "Shanghai Zensoinfo | Home";
         if (currentPage === 'about') renderAboutPage(lang);
-        if (currentPage === 'home' && document.getElementById('heroContainer') && originalHeroHTML && !document.getElementById('heroContainer').innerHTML.includes('about-photo-card')) {
-            // 保证首页内容完整
-        }
     }
 
     let currentPage = 'home';
 
-    // 渲染关于我们页面 (重点：添加公司门头照)
+    // 渲染关于我们页面（包含两张图片：门头照.jpg 和 赞硕公司图片.png）
     function renderAboutPage(lang) {
         const heroContainer = document.getElementById('heroContainer');
         if (!heroContainer) return;
         const isZh = lang === 'zh';
+        // 附件1：门头照.jpg  附件2：赞硕公司图片.png（展示创新、速度等字样，直接贴图）
         const aboutHTML = `
             <div class="hero-content" style="flex:1;">
                 <span class="hero-badge"><i class="fas fa-building"></i> ${isZh ? '关于赞硕' : 'About Zensoinfo'}</span>
@@ -353,12 +378,22 @@
                 <a href="#" id="aboutBackHome" class="btn-primary" style="margin-top:10px;">${isZh ? '返回首页' : 'Back to Home'} <i class="fas fa-arrow-left"></i></a>
             </div>
             <div class="hero-image" style="flex:1;">
-                <!-- 公司门头照片卡片：此处加入上传的图片附件2 -->
-                <div class="about-photo-card">
-                    <img class="company-portrait" src="上海赞硕信息技术有限公司门头照.jpg" alt="上海赞硕信息技术有限公司门头照" style="width:100%; height:auto; aspect-ratio:4/3; object-fit:cover;" 
-                         onerror="this.onerror=null; this.src='https://placehold.co/600x450/2563eb/white?text=Zensoinfo+Office';">
-                    <div class="img-caption">
-                        <i class="fas fa-location-dot"></i> ${translations[lang]["about.photo.caption"] || (isZh ? '上海赞硕信息技术有限公司 · 总部实景' : 'Shanghai Zensoinfo · Headquarters')}
+                <div class="about-visual-grid">
+                    <!-- 第一张图片：公司门头照 (附件1) -->
+                    <div class="about-photo-card">
+                        <img class="company-portrait" src="上海赞硕信息技术有限公司门头照.jpg" alt="上海赞硕信息技术有限公司门头照" style="width:100%; height:auto; aspect-ratio:4/3; object-fit:cover;" 
+                             onerror="this.onerror=null; this.src='https://placehold.co/600x450/2563eb/white?text=Zensoinfo+Office';">
+                        <div class="img-caption">
+                            <i class="fas fa-location-dot"></i> ${translations[lang]["about.photo.caption"] || (isZh ? '上海赞硕信息技术有限公司 · 总部实景' : 'Shanghai Zensoinfo · Headquarters')}
+                        </div>
+                    </div>
+                    <!-- 第二张图片：赞硕公司图片.png (企业文化、创新、速度等视觉) -->
+                    <div class="brand-motto-card">
+                        <img class="creative-img" src="赞硕公司图片.png" alt="赞硕企业精神：创新 速度 卓越" style="width:100%; height:auto; aspect-ratio:4/3; object-fit:cover;"
+                             onerror="this.onerror=null; this.src='https://placehold.co/600x450/eef2ff/1e40af?text=Innovation+Speed+Excellence';">
+                        <div class="img-caption">
+                            <i class="fas fa-rocket"></i> ${translations[lang]["about.motto.caption"] || (isZh ? '创新 · 速度 · 卓越 — 我们的核心基因' : 'Innovation · Speed · Excellence — Our Core DNA')}
+                        </div>
                     </div>
                 </div>
             </div>
